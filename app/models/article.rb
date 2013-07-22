@@ -2,6 +2,7 @@ class Article < ActiveRecord::Base
 	has_many :comments
 	has_many :taggings
 	has_many :tags, through: :taggings
+	has_attached_file :image
 
 	def tag_list
 		self.tags.collect do |tag|
@@ -14,6 +15,9 @@ class Article < ActiveRecord::Base
 		new_or_found_tags = tag_names.collect { |name| Tag.find_or_create_by(name: name) }
   		self.tags = new_or_found_tags
 	end
+
+	#attr_accessible parms[:image]
+	#attr_accessible :title, :body, :tag_list, :image
 end
 
 
